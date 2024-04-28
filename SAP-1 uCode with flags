@@ -20,7 +20,7 @@ FI      = 0b0000000000000001  # Flags In
 
 data = [
   [MI|CO,  ROM|II|CE,  0,           0,              0,          0,              0,  0,  0,0,0,0,0,0,0,0],   # 000000 - NOP 
-  [MI|CO,  ROM|II|CE,  MI|ROM,      RO|AI|CE,       uR,         0,              0,  0,  0,0,0,0,0,0,0,0],   # 000001 - LDA
+  [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         RO|AI|CE,   uR,             0,  0,  0,0,0,0,0,0,0,0],   # 000001 - LDA
   [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         BI|RO|CE,   EO|AI|FI,       uR, 0,  0,0,0,0,0,0,0,0],   # 000010 - ADD
   [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         BI|RO|CE,   EO|AI|SU|FI,    uR, 0,  0,0,0,0,0,0,0,0],   # 000011 - SUB
   [MI|CO,  ROM|II|CE,  CO|MI,       ROM|MI,         AO|RI|CE,   uR,             0,  0,  0,0,0,0,0,0,0,0],   # 000100 - STA
@@ -81,8 +81,8 @@ data = [
   [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111011
   [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111100
   [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111101
-  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111110
-  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0]    # 111111
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0],   # 111110 - OUT
+  [MI|CO,  ROM|II|CE,  0,           0,              0,          0,        0,  0,0,0,0,0,0,0,0,0]    # 111111 - HLT
 ]
 
 CF0ZF0 = 0
@@ -119,7 +119,7 @@ for address in range(1024):
 #CF 1 ZF 0 on JC instruction
 #STEP 2 CO|MI
 output_MSB[0x472] = 0x40
-output_LSB[0x472] = 0x02
+output_LSB[0x472] = 0x04
 #STEP 3 ROM|J
 output_MSB[0x473] = 0x30
 output_LSB[0x473] = 0x02
